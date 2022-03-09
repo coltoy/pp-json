@@ -2,9 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PP-JSON: Health Dataset</title>
+    <title>PP-JSON: Video Game Dataset</title>
 </head>
 <body>
 
+<label>Enter a video game title:
+    <input type="text" id="search">
+</label>
+<button id="get">Get JSON Data</button>
+
+<div id="output"></div>
+
+<script src="//code.jquery.com/jquery.js"></script>
+
+<script>
+    $("#get").on("click", function(){
+        let search = $("#search").val().toLowerCase();
+
+        $.getJSON("video_games.json", function(result) {
+
+            $.each(result, function(index, item) {
+                if (item["Title"].toLowerCase().includes(search)) {
+                    $("#output").append(item["Title"] + " - Review Score: " + item["Metrics"]["Review Score"] + "<br>");
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
